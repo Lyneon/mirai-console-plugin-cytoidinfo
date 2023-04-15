@@ -3,66 +3,9 @@ package com.lyneon.cytoidinfo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-sealed class Profile
 
 @Serializable
 data class PlayerProfile(
-    val user: User,
-    val exp: Exp,
-    val rating: String,
-    val grade: Grade,
-    val activities: Activities
-) : Profile() {
-    
-    @Serializable
-    data class User(
-        val uid: String,
-        val avatar: Avatar
-    ) {
-        @Serializable
-        data class Avatar(
-        val original: String
-        )
-    }
-    
-    @Serializable
-    data class Exp(
-        val basicExp:Int,
-        val levelExp:Int,
-        val totalExp:Int,
-        val currentLevel:Int,
-        val nextLevelExp:Int,
-        val currentLevelExp:Int
-    )
-    
-    @Serializable
-    data class Grade(
-        @SerialName("B")val b:Int,
-        @SerialName("SSS")val sss:Int,
-        @SerialName("AA")val aa:Int,
-        @SerialName("SS")val ss:Int,
-        @SerialName("C")val c:Int,
-        @SerialName("MAX")val max:Int,
-        @SerialName("D")val d:Int,
-        @SerialName("F")val f:Int,
-        @SerialName("S")val s:Int,
-        @SerialName("A")val a:Int
-    )
-    
-    @Serializable
-    data class Activities(
-        val totalRankedPlays:Int,
-        val clearedNotes:Long,
-        val maxCombo:Int,
-        val averageRankedAccuracy:Double,
-        val totalRankedScore:Long,
-        val totalPlayTime:Float
-    )
-}
-
-
-@Serializable
-data class DetailPlayerProfile(
     val user: User,
     val exp: Exp,
     val rating: String,
@@ -71,7 +14,7 @@ data class DetailPlayerProfile(
     val tier: Tier,
     val character: Character,
     val recentRecords: List<Record>
-):Profile(){
+){
     @Serializable
     data class Record(
         val score: Int,
