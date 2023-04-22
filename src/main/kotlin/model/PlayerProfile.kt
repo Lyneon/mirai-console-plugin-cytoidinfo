@@ -1,8 +1,7 @@
-package com.lyneon.cytoidinfo
+package com.lyneon.cytoidinfo.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data class PlayerProfile(
@@ -19,43 +18,44 @@ data class PlayerProfile(
     data class Record(
         val score: Int,
         val accuracy: Float,
-        val details: RecordDetail,
+        val details: Detail,
         val chart: Chart
-    ){
+    ) {
         @Serializable
-        data class RecordDetail(
-            val bad:Int,
-            val good:Int,
-            val miss:Int,
-            val great:Int,
-            val perfect:Int,
-            val maxCombo:Int
+        data class Detail(
+            val bad: Int,
+            val good: Int,
+            val miss: Int,
+            val great: Int,
+            val perfect: Int,
+            val maxCombo: Int
         )
+        
         @Serializable
         data class Chart(
-            val type:String,
-            val difficulty:Int,
-            val level:Level,
-            val notesCount:Int
-        ){
+            val type: String,
+            val difficulty: Int,
+            val level: Level,
+            val notesCount: Int
+        ) {
             @Serializable
             data class Level(
-                val title:String
+                val title: String
             )
             
         }
     }
+    
     @Serializable
     data class Character(
-        val name:String,
+        val name: String,
         val exp: Exp
-    ){
+    ) {
         @Serializable
         data class Exp(
             val currentLevel: Int
         )
     }
-    
     
     @Serializable
     data class Tier(
@@ -64,6 +64,7 @@ data class PlayerProfile(
     
     @Serializable
     data class User(
+        val id:String,
         val uid:String,
         val avatar: Avatar
     ){
@@ -105,4 +106,5 @@ data class PlayerProfile(
         val averageRankedAccuracy:Double,
         val totalRankedScore:Long
     )
+    
 }

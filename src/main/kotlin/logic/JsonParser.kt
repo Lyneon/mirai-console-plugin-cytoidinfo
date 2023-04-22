@@ -1,5 +1,8 @@
-package com.lyneon.cytoidinfo
+package com.lyneon.cytoidinfo.logic
 
+import com.lyneon.cytoidinfo.model.B30Records
+import com.lyneon.cytoidinfo.model.PlayerProfile
+import com.lyneon.cytoidinfo.tool.times
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -38,7 +41,7 @@ object JsonParser {
                         appendLine(record.score)
                         appendLine(
                             if (record.score == 1000000) "All Perfect"
-                            else if (record.details.maxCombo == record.chart.notesCount) "Full Combo"
+                            else if (record.details.maxCombo == record.chart.notesCount) "Full Combo 全连击"
                             else "${record.details.maxCombo} 最大连击"
                         )
                         appendLine("精准度：${((record.accuracy) * 100).fix(2)}%")
@@ -51,6 +54,22 @@ object JsonParser {
             }
         }
     }
+    
+    fun parseB30RecordsToText(b30Records: B30Records,playerName: String): String = StringBuilder().apply{
+        appendLine("${playerName}的${b30Records.data.profile.bestRecords.size}条最佳游玩记录：")
+        for (record in b30Records.data.profile.bestRecords){
+            appendLine("${record.chart.level.title}(${record.chart.type} ${record.chart.difficulty})")
+            appendLine(record.score)
+            appendLine(
+                if (record.score == 1000000) "All Perfect"
+                else if (record.details.maxCombo == record.chart.notesCount) "Full Combo 全连击"
+                else "${record.details.maxCombo} 最大连击"
+            )
+            appendLine("精准度：${((record.accuracy) * 100).fix(2)}%")
+            appendLine(record.details.toString())
+            appendLine()
+        }
+    }.toString()
 }
 
 fun Number.fix(digits: Int): String {

@@ -7,10 +7,12 @@ plugins {
 }
 
 group = "com.lyneon.cytoidinfo"
-version = "0.1.2"
+version = "0.1.3"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
     mavenCentral()
 }
-dependencies { }
+dependencies {
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+}
