@@ -7,14 +7,16 @@
 
 /cytoid (别名/ctd):
 
-- `/cytoid query <playerName> [type]`
+- `/cytoid profile <playerName> [type]`
 
   - type可选值：default,detail
+
+- `/cytoid b30 <playerName> [count]`
 
 ## Todo List
 
 - [x] 概览数据
 - [x] 文字输出
 - [x] r10
-- [ ] 图片输出 
+- [ ] 图片输出
 - [x] b30
