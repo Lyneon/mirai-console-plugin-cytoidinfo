@@ -2,9 +2,7 @@ package com.lyneon.cytoidinfo.logic
 
 import com.lyneon.cytoidinfo.model.B30Records
 import com.lyneon.cytoidinfo.model.PlayerProfile
-import com.lyneon.cytoidinfo.tool.times
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import com.lyneon.cytoidinfo.tool.fix
 
 object JsonParser {
     fun parsePlayerProfileToText(profile: PlayerProfile, isDetail: Boolean): String {
@@ -70,10 +68,4 @@ object JsonParser {
             appendLine()
         }
     }.toString()
-}
-
-fun Number.fix(digits: Int): String {
-    val df = DecimalFormat("#.${"#" * digits}")
-    df.roundingMode = RoundingMode.CEILING
-    return df.format(this)
 }
