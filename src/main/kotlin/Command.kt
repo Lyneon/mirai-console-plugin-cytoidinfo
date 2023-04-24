@@ -1,6 +1,6 @@
 package com.lyneon.cytoidinfo
 
-import com.lyneon.cytoidinfo.logic.JsonParser
+import com.lyneon.cytoidinfo.logic.DataParser
 import com.lyneon.cytoidinfo.logic.NetRequest
 import com.lyneon.cytoidinfo.model.PlayerProfile
 import net.mamoe.mirai.console.command.CommandSender
@@ -33,12 +33,12 @@ class MainCommand : CompositeCommand(
         }
         val result = try {
             when {
-                queryType == "default" && outputType == "text" -> JsonParser.parsePlayerProfileToText(
+                queryType == "default" && outputType == "text" -> DataParser.parsePlayerProfileToText(
                     playerProfile,
                     false
                 )
 //                queryType == "default" && outputType == "image" -> ImageHandler.profileToImage(playerProfile, false)
-                queryType == "detail" && outputType == "text" -> JsonParser.parsePlayerProfileToText(
+                queryType == "detail" && outputType == "text" -> DataParser.parsePlayerProfileToText(
                     playerProfile,
                     true
                 )
@@ -75,7 +75,7 @@ class MainCommand : CompositeCommand(
         val contact = context.subject ?: return
         val bot = context.bot ?: return
         contact.sendMessage("开始查询")
-        val result = JsonParser.parseB30RecordsToText(NetRequest.getB30Records(playerName, count), playerName)
+        val result = DataParser.parseB30RecordsToText(NetRequest.getB30Records(playerName, count), playerName)
         val message = ForwardMessageBuilder(contact)
             .add(bot, PlainText(result))
             .build()

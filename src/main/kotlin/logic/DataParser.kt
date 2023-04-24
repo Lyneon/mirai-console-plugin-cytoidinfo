@@ -4,7 +4,7 @@ import com.lyneon.cytoidinfo.model.B30Records
 import com.lyneon.cytoidinfo.model.PlayerProfile
 import com.lyneon.cytoidinfo.tool.fix
 
-object JsonParser {
+object DataParser {
     fun parsePlayerProfileToText(profile: PlayerProfile, isDetail: Boolean): String {
         if (!isDetail) {
             try {
