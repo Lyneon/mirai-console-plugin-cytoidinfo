@@ -70,7 +70,8 @@ data class PlayerProfile(
     ){
         @Serializable
         data class Avatar(
-            val original:String
+            val original:String,
+            val medium:String
         )
     }
     

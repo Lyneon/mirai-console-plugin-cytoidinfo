@@ -47,7 +47,8 @@ data class B30Records(val data:Data){
                         ){
                             @Serializable
                             data class BackgroundImage(
-                                val original: String
+                                val original: String,
+                                val thumbnail: String
                             )
                         }
                     }
