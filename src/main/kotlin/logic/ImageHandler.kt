@@ -61,6 +61,10 @@ object ImageHandler {
         val bi = BufferedImage(6160, 3210, BufferedImage.TYPE_INT_RGB)
         val g = bi.createGraphics().enableAntiAlias()
         coroutineScope {
+            g.drawImage(withContext(Dispatchers.IO) {
+                ImageIO.read(javaClass.classLoader.getResourceAsStream("pictures/MarySue_bg_blur.jpg"))
+            },0,0,null)
+            
 //            绘制头像
             val avatar = withContext(Dispatchers.IO) {
                 ImageIO.read(URL(profile.user.avatar.medium))
