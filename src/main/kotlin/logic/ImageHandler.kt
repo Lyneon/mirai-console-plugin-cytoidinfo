@@ -83,7 +83,7 @@ object ImageHandler {
             g.drawString(profile.user.uid, 600, 300)
             g.color = Color.WHITE
             g.font = g.font.deriveFont(75f)
-            g.drawString("等级 ${profile.exp.currentLevel}  Rating ${profile.rating.toDouble().fix(2)}", 600, 400)
+            g.drawString("Lv.${profile.exp.currentLevel}  Rating ${profile.rating.toDouble().fix(2)}", 600, 400)
 
 //            获取记录图像
             val deferreds = ArrayList<Deferred<BufferedImage>>()
