@@ -62,7 +62,7 @@ object ImageHandler {
         val g = bi.createGraphics().enableAntiAlias()
         coroutineScope {
             g.drawImage(withContext(Dispatchers.IO) {
-                ImageIO.read(javaClass.classLoader.getResourceAsStream("pictures/MarySue_bg_blur.jpg"))
+                ImageIO.read(javaClass.classLoader.getResourceAsStream("pictures/bg_blur.jpg"))
             },0,0,null)
             
 //            绘制头像
@@ -171,7 +171,7 @@ object ImageHandler {
                 )
                 g.drawString("Bad:${record.details.bad} Miss:${record.details.miss}", 606, 250)
                 g.drawString(
-                    "Max Combo:${record.details.maxCombo} ${if (record.score == 1000000) "All Perfect" else if (record.details.maxCombo == record.chart.notesCount) "Full Combo" else null}",
+                    "Max Combo:${record.details.maxCombo} ${if (record.score == 1000000) "All Perfect" else if (record.details.maxCombo == record.chart.notesCount) "Full Combo" else ""}",
                     606,
                     280
                 )
