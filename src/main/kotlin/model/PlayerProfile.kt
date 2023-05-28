@@ -87,16 +87,16 @@ data class PlayerProfile(
     
     @Serializable
     data class Grade(
-        @SerialName("B")val b:Int,
-        @SerialName("SSS")val sss:Int,
-        @SerialName("AA")val aa:Int,
-        @SerialName("SS")val ss:Int,
-        @SerialName("C")val c:Int,
-        @SerialName("MAX")val max:Int,
-        @SerialName("D")val d:Int,
-        @SerialName("F")val f:Int,
-        @SerialName("S")val s:Int,
-        @SerialName("A")val a:Int
+        @SerialName("B")val b:Int = 0,
+        @SerialName("SSS")val sss:Int = 0,
+        @SerialName("AA")val aa:Int = 0,
+        @SerialName("SS")val ss:Int = 0,
+        @SerialName("C")val c:Int = 0,
+        @SerialName("MAX")val max:Int = 0,
+        @SerialName("D")val d:Int = 0,
+        @SerialName("F")val f:Int = 0,
+        @SerialName("S")val s:Int = 0,
+        @SerialName("A")val a:Int = 0
     )
     
     @Serializable
