@@ -15,9 +15,7 @@ object CytoidInfo : KotlinPlugin(
     }
 ) {
     override fun onEnable() {
-        logger.info("测试864")
-        logger.info { "插件已加载" }
-        //注册/cytoid命令
+        logger.info("插件已加载")
         CommandManager.registerCommand(MainCommand())
         logger.info("命令已注册")
     }
