@@ -5,20 +5,17 @@ import com.lyneon.cytoidinfo.logic.ImageHandler
 import com.lyneon.cytoidinfo.logic.NetRequest
 import com.lyneon.cytoidinfo.model.PlayerProfile
 import com.lyneon.cytoidinfo.tool.toInputStream
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.command.CompositeCommand
 import net.mamoe.mirai.contact.Contact.Companion.sendImage
 import net.mamoe.mirai.message.data.ForwardMessageBuilder
 import net.mamoe.mirai.message.data.PlainText
-import net.mamoe.mirai.utils.MiraiLogger
 
 class MainCommand : CompositeCommand(
     CytoidInfo, "cytoid", "ctd"
 ) {
-    private val logger = MiraiLogger.Factory.INSTANCE.create(this::class.java)
+    private val logger = CytoidInfo.logger
     
     @SubCommand
     suspend fun profile(
@@ -92,16 +89,13 @@ class MainCommand : CompositeCommand(
                         val image = ImageHandler.getB30RecordsImage(profile)
                         val imageStream = image.toInputStream()
                         contact.sendImage(imageStream)
-                        image.flush()
-                        withContext(Dispatchers.IO) {
-                            imageStream.close()
-                        }
                     }
                     
                     else -> throw Exception("unknown exception")
                 }
             } catch (e: Exception) {
                 contact.sendMessage("查询失败：${e.message}")
+                logger.error(e)
             }
         }
     }

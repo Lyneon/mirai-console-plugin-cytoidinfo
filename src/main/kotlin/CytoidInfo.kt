@@ -9,12 +9,13 @@ object CytoidInfo : KotlinPlugin(
     JvmPluginDescription(
         id = "com.lyneon.cytoidinfo",
         name = "CytoidInfo",
-        version = "0.1.0",
+        version = "0.1.4",
     ) {
         author("Lyneon")
     }
 ) {
     override fun onEnable() {
+        logger.info("测试864")
         logger.info { "插件已加载" }
         //注册/cytoid命令
         CommandManager.registerCommand(MainCommand())

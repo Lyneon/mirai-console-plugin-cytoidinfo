@@ -1,5 +1,6 @@
 package com.lyneon.cytoidinfo.logic
 
+import com.lyneon.cytoidinfo.CytoidInfo
 import com.lyneon.cytoidinfo.model.B30Records
 import com.lyneon.cytoidinfo.model.Character
 import com.lyneon.cytoidinfo.model.PlayerProfile
@@ -23,9 +24,9 @@ object ImageHandler {
         
         g.drawImage(
             when (profile.character.name) {
-                Character.hancho -> ImageIO.read(javaClass.classLoader.getResource("pictures/Hancho_bg.jpg"))
-                Character.marySue -> ImageIO.read(javaClass.classLoader.getResource("pictures/MarySue_bg.png"))
-                else -> ImageIO.read(javaClass.classLoader.getResource("pictures/MarySue_bg.png"))
+                Character.hancho -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/Hancho_bg.jpg"))
+                Character.marySue -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/MarySue_bg.png"))
+                else -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/MarySue_bg.png"))
             }, 0, 0, 2000, 1000, null
         )
         g.color = Color(0, 0, 0, 128)
@@ -44,9 +45,9 @@ object ImageHandler {
         
         g.drawImage(
             when (profile.character.name) {
-                Character.hancho -> ImageIO.read(javaClass.classLoader.getResource("pictures/Hancho.png"))
-                Character.marySue -> ImageIO.read(javaClass.classLoader.getResource("pictures/MarySue.png"))
-                else -> ImageIO.read(javaClass.classLoader.getResource("pictures/Sayaka.png"))
+                Character.hancho -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/Hancho.png"))
+                Character.marySue -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/MarySue.png"))
+                else -> ImageIO.read(CytoidInfo.getResourceAsStream("pictures/Sayaka.png"))
             }, 1000, 0, 1000, 1000, null
         )
         
@@ -61,10 +62,11 @@ object ImageHandler {
         val bi = BufferedImage(6160, 3210, BufferedImage.TYPE_INT_RGB)
         val g = bi.createGraphics().enableAntiAlias()
         coroutineScope {
-            g.drawImage(withContext(Dispatchers.IO) {
-                ImageIO.read(javaClass.classLoader.getResourceAsStream("pictures/bg_blur.jpg"))
-            },0,0,null)
-            
+            val bg = withContext(Dispatchers.IO) {
+                ImageIO.read(CytoidInfo.getResourceAsStream("pictures/bg_blur.jpg"))
+            }
+            g.drawImage(bg, 0, 0, null)
+
 //            绘制头像
             val avatar = withContext(Dispatchers.IO) {
                 ImageIO.read(URL(profile.user.avatar.medium))
@@ -76,8 +78,7 @@ object ImageHandler {
 //            g.font = Font(Font.SANS_SERIF, Font.PLAIN, 200)
             g.font = withContext(Dispatchers.IO) {
                 Font.createFont(
-                    Font.TRUETYPE_FONT,
-                    javaClass.classLoader.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
+                    Font.TRUETYPE_FONT, CytoidInfo.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
                 )
             }.deriveFont(200f)
             g.drawString(profile.user.uid, 600, 300)
@@ -147,8 +148,8 @@ object ImageHandler {
                 
                 val difficultyImage = withContext(Dispatchers.IO) {
                     ImageIO.read(
-                        javaClass.classLoader.getResource("pictures/difficulty/${record.chart.difficulty}.png")
-                            ?: javaClass.classLoader.getResource("pictures/difficulty/0.png")
+                        CytoidInfo.getResourceAsStream("pictures/difficulty/${record.chart.difficulty}.png")
+                            ?: CytoidInfo.getResourceAsStream("pictures/difficulty/0.png")
                     )
                 }
                 g.drawImage(difficultyImage, 606, 30, null)
@@ -157,7 +158,7 @@ object ImageHandler {
                 g.font = withContext(Dispatchers.IO) {
                     Font.createFont(
                         Font.TRUETYPE_FONT,
-                        javaClass.classLoader.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
+                        CytoidInfo.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
                     )
                 }.deriveFont(50f)
                 g.drawString(record.chart.level.title, 686, 80)
