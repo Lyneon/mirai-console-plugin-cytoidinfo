@@ -2,6 +2,7 @@ package com.lyneon.cytoidinfo.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.jetbrains.annotations.Nullable
 
 @Serializable
 data class PlayerProfile(
@@ -10,7 +11,7 @@ data class PlayerProfile(
     val rating: String,
     val grade: Grade,
     val activities: Activities,
-    val tier: Tier,
+    @Nullable val tier: Tier?,
     val character: Character,
     val recentRecords: List<Record>
 ){

@@ -27,7 +27,7 @@ object DataParser {
             } else {
                 try {
                     StringBuilder().apply {
-                        appendLine("${profile.user.uid}(等级${profile.exp.currentLevel})(${profile.tier.name})")
+                        appendLine("${profile.user.uid}(等级${profile.exp.currentLevel})(${profile.tier?.name})")
                         appendLine("Rating: ${profile.rating.toDouble().fix(2)}")
                         appendLine("总游玩次数(非练习模式): ${profile.activities.totalRankedPlays}")
                         appendLine("总击中note: ${profile.activities.clearedNotes}")
