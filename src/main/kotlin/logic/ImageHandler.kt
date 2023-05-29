@@ -13,6 +13,7 @@ import java.awt.Color
 import java.awt.Font
 import java.awt.geom.RoundRectangle2D
 import java.awt.image.BufferedImage
+import java.io.IOException
 import java.net.URL
 import javax.imageio.ImageIO
 
@@ -137,15 +138,41 @@ object ImageHandler {
             async {
                 val bi = BufferedImage(1152, 360, BufferedImage.TYPE_INT_ARGB)
                 val g = bi.createGraphics().enableAntiAlias()
-                
+    
                 g.color = Color(0, 0, 0, 128)
                 g.fillRect(0, 0, 1152, 360)
-                
-                val bg = withContext(Dispatchers.IO) {
-                    ImageIO.read(URL(record.chart.level.bundle.backgroundImage.thumbnail))
+    
+                //绘制曲绘
+                withContext(Dispatchers.IO) {
+                    try {
+                        g.drawImage(
+                            ImageIO.read(URL(record.chart.level.bundle.backgroundImage.thumbnail)),
+                            0,
+                            0,
+                            576,
+                            360,
+                            null
+                        )
+                    } catch (e: IOException) {
+                        g.drawImage(
+                            ImageIO.read(CytoidInfo.getResourceAsStream("pictures/sayakacry.png")),
+                            0,
+                            0,
+                            360,
+                            360,
+                            null
+                        )
+                        g.font = withContext(Dispatchers.IO) {
+                            Font.createFont(
+                                Font.TRUETYPE_FONT,
+                                CytoidInfo.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
+                            )
+                        }.deriveFont(50f)
+                        g.color = Color.WHITE
+                        g.drawString("?妹有!11", 370, 200)
+                    }
                 }
-                g.drawImage(bg, 0, 0, 576, 360, null)
-                
+    
                 val difficultyImage = withContext(Dispatchers.IO) {
                     ImageIO.read(
                         CytoidInfo.getResourceAsStream("pictures/difficulty/${record.chart.difficulty}.png")
@@ -153,14 +180,9 @@ object ImageHandler {
                     )
                 }
                 g.drawImage(difficultyImage, 606, 30, null)
-                
+    
                 g.color = Color.WHITE
-                g.font = withContext(Dispatchers.IO) {
-                    Font.createFont(
-                        Font.TRUETYPE_FONT,
-                        CytoidInfo.getResourceAsStream("fonts/MPLUSRounded1c-Regular.ttf")
-                    )
-                }.deriveFont(50f)
+                g.font = g.font.deriveFont(50f)
                 g.drawString(record.chart.level.title, 686, 80)
                 g.drawString("${record.score} Acc:${(record.accuracy * 100).fix(2)}%", 606, 160)
                 g.font = g.font.deriveFont(30f)
