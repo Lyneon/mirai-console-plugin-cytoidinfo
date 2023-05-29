@@ -21,7 +21,11 @@ object NetRequest {
             .build()
         val result = withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
-            response.body?.string()
+            when (response.code) {
+                200 -> response.body?.string()
+                404 -> throw Exception("未找到玩家")
+                else -> throw Exception("Unknown Exception:HTTP response code ${response.code}")
+            }
         }
         if (result == null) {
             throw Exception("Request failed")
@@ -43,7 +47,11 @@ object NetRequest {
             .build()
         val result = withContext(Dispatchers.IO) {
             val response = client.newCall(request).execute()
-            response.body?.string()
+            when (response.code) {
+                200 -> response.body?.string()
+                404 -> throw Exception("未找到玩家")
+                else -> throw Exception("Unknown Exception:HTTP response code ${response.code}")
+            }
         }
         if (result == null) {
             throw Exception("Request failed")
